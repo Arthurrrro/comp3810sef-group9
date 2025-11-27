@@ -24,6 +24,19 @@ A simple fruit ordering system using the MERN stack.
 
 ## 2. Project File Intro
 
+### Project Structure Note
+
+This project uses a slightly different directory structure than the template:
+
+- `server.js` is located in `js_server/server.js` (instead of root)
+- `package.json` is located in `js_server/package.json` (instead of root)
+- `models` folder is named `orderBean` (located in `js_server/orderBean/`)
+- `views` folder is named `Views` and contains React source code (not EJS templates)
+
+This structure was chosen for better organization of the full-stack application.
+
+---
+
 ### server.js (js_server/server.js)
 - **Express.js**: Node.js web framework
 - **Cookie Parser**: Handles HTTP cookies
@@ -133,7 +146,7 @@ Data schema files using Mongoose:
 - Email: `emma@au.com` / Password: `password4`
 - Email: `carlos@es.com` / Password: `password5`
 
-**Staff/Warehouse Accounts:**
+**Staff Accounts:**
 - Email: `mike@us.com` / Password: `password6`
 - Email: `sato@jp.com` / Password: `password8`
 - Email: `liam@au.com` / Password: `password9`
@@ -168,7 +181,7 @@ Data schema files using Mongoose:
   - Select fruit, location, and enter quantity
   - Click "Add Inventory" button
 
-- **Add Delivery**: Navigate to "Deliveries" → "Add Delivery" (Manager/Warehouse only)
+- **Add Delivery**: Navigate to "Deliveries" → "Add Delivery" (Manager only)
   - Fill in delivery details (from/to locations, fruit, quantity, dates)
   - Click "Create Delivery" button
 
@@ -184,7 +197,7 @@ Data schema files using Mongoose:
 - **View Inventory**: Navigate to "Inventory" → "My Inventory"
   - Shows inventory records filtered by user's location
 
-- **View Deliveries**: Navigate to "Deliveries" (Manager/Warehouse only)
+- **View Deliveries**: Navigate to "Deliveries" (Manager only)
   - Displays all delivery records with filtering options
 
 - **View Staff**: Navigate to "Staff" → "List Staff" (Manager only)
@@ -220,7 +233,7 @@ Data schema files using Mongoose:
 
 **Permission Notes:**
 - **Manager**: Can perform all CRUD operations on all modules
-- **Staff/Warehouse**: Can create/read/update inventory, deliveries, and borrows; limited staff management
+- **Staff**: Can create/read/update inventory, deliveries, and borrows; limited staff management
 - **Shop**: Can only read inventory and create borrow requests
 
 ---
