@@ -356,7 +356,39 @@ router.put('/staff/:id', async (req, res) => {
 
         const actorPriority = getPriority(actingUser.data.job);
         const targetPriority = getPriority(targetStaff.data.job);
+        const isSelfEdit = actingUser.data._id.toString() === targetStaff.data._id.toString();
 
+        // If user is editing themselves, allow limited self-update (name, phone, password only)
+        if (isSelfEdit) {
+            // Users can only update their own name, phone, and password
+            // Prevent changing job, locationId, status, or email
+            const updateData = {
+                name: name,
+                phone: phone
+            };
+
+            // Only include password if provided
+            if (password && password.trim() !== '') {
+                updateData.password = password;
+            }
+
+            // Explicitly prevent changing sensitive fields
+            const result = await staffDB.updateStaff(id, updateData);
+
+            if (result.success) {
+                return res.json({
+                    message: 'Your profile has been updated successfully',
+                    data: result.data
+                });
+            } else {
+                return res.status(400).json({
+                    error: 'Failed to update profile',
+                    message: result.error
+                });
+            }
+        }
+
+        // If editing someone else, check permission levels
         if (actorPriority <= targetPriority) {
             return res.status(403).json({
                 success: false,
@@ -365,6 +397,7 @@ router.put('/staff/:id', async (req, res) => {
             });
         }
 
+        // For editing others, allow all fields (but email should not be changed typically)
         const result = await staffDB.updateStaff(id, {
             name: name,
             email: email,
