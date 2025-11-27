@@ -222,7 +222,7 @@ export default function StaffTable({ onEditStaff }) {
       </Box>
       <Box sx={{ p: 3 }}>
         
-        {/* 搜索栏 */}
+        {/* Search bar */}
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'space-between', 

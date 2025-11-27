@@ -54,7 +54,7 @@ Add the following environment variables in "Environment Variables" section:
 ### Step 3: Create OAuth 2.0 Client ID
 
 1. **Navigate to Credentials**:
-   - Use search bar: type "Credentials" or "憑證"
+   - Use search bar: type "Credentials"
    - Or: "APIs & Services" → "Credentials"
 
 2. **Create OAuth Client ID**:

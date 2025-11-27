@@ -1,14 +1,14 @@
-# Render 部署配置文件 - 合併部署（前端+後端單一服務）
-# 此配置用於自動化部署配置
-# 你也可以在 Render 網頁界面手動配置
+# Render deployment configuration file - Combined deployment (frontend + backend single service)
+# This configuration is used for automated deployment configuration
+# You can also configure manually in the Render web interface
 
 services:
-  # 合併部署：前端和後端在同一個服務中
+  # Combined deployment: Frontend and backend in the same service
   - type: web
     name: fruit-order-system
     env: node
-    region: singapore  # 可選：singapore, oregon, frankfurt 等
-    plan: free  # 或 starter, standard 等付費方案
+    region: singapore  # Optional: singapore, oregon, frankfurt, etc.
+    plan: free  # Or starter, standard, etc. paid plans
     buildCommand: node build.js
     startCommand: cd js_server && npm start
     envVars:
@@ -17,16 +17,16 @@ services:
       - key: PORT
         value: 10000
       - key: SERVE_FRONTEND
-        value: "true"  # 必須設置為 true 以啟用前端服務
+        value: "true"  # Must be set to true to enable frontend service
       - key: ATLAS_URL
-        sync: false  # 需要在 Render 界面手動設置 MongoDB 連接字串
+        sync: false  # Need to manually set MongoDB connection string in Render interface
       - key: REACT_APP_API_URL
-        sync: false  # 合併部署可以留空（使用相對路徑）
+        sync: false  # Can be left empty for combined deployment (uses relative path)
       - key: REACT_APP_GOOGLE_CLIENT_ID
-        sync: false  # 需要在 Render 界面手動設置（如果使用 Google OAuth）
+        sync: false  # Need to manually set in Render interface (if using Google OAuth)
       - key: GOOGLE_CLIENT_ID
-        sync: false  # 需要在 Render 界面手動設置（必須與 REACT_APP_GOOGLE_CLIENT_ID 相同）
+        sync: false  # Need to manually set in Render interface (must be the same as REACT_APP_GOOGLE_CLIENT_ID)
       - key: ALLOWED_ORIGINS
-        sync: false  # 可選：如果需要額外的 CORS 設定
-    # rootDir 留空，使用根目錄
+        sync: false  # Optional: If additional CORS configuration is needed
+    # rootDir should be empty, use root directory
 

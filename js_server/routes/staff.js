@@ -44,7 +44,7 @@ router.post('/staff/google-login', async (req, res) => {
             });
         }
 
-        // 檢查環境變量（去除空格）
+        // Check environment variables (trim whitespace)
         const backendClientId = process.env.GOOGLE_CLIENT_ID ? process.env.GOOGLE_CLIENT_ID.trim() : null;
         console.log('2. Checking Google Client ID:', backendClientId ? `Present (${backendClientId.substring(0, 20)}...)` : 'MISSING');
         if (!backendClientId) {
@@ -54,7 +54,7 @@ router.post('/staff/google-login', async (req, res) => {
             });
         }
         
-        // 檢查前端和後端 Client ID 是否一致
+        // Check if frontend and backend Client IDs match
         const frontendClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID ? process.env.REACT_APP_GOOGLE_CLIENT_ID.trim() : null;
         if (frontendClientId && frontendClientId !== backendClientId) {
             console.error('❌ Client ID mismatch: Frontend and backend are using different Client IDs');
@@ -66,7 +66,7 @@ router.post('/staff/google-login', async (req, res) => {
             });
         }
 
-        // 驗證 Google token
+        // Verify Google token
         console.log('3. Verifying Google token...');
         const ticket = await client.verifyIdToken({
             idToken: credential,
@@ -78,7 +78,7 @@ router.post('/staff/google-login', async (req, res) => {
 
         console.log('4. Google token verified for email:', email);
 
-        // 檢查用戶是否存在於資料庫中
+        // Check if user exists in database
         console.log('5. Checking database for user:', email);
         const userResult = await staffDB.findStaffByEmail(email);
 
@@ -94,7 +94,7 @@ router.post('/staff/google-login', async (req, res) => {
 
         const user = userResult.data;
 
-        // 設置 cookie（與普通登入保持一致）
+        // Set cookie (consistent with regular login)
         console.log('7. Setting cookie for user:', email);
         res.cookie('userEmail', email, {
             httpOnly: true,
@@ -117,7 +117,7 @@ router.post('/staff/google-login', async (req, res) => {
         console.error('Error message:', error.message);
         console.error('Error stack:', error.stack);
         
-        // 更具體的錯誤處理
+        // More specific error handling
         if (error.message.includes('Token used too late')) {
             return res.status(401).json({
                 success: false,
@@ -139,7 +139,7 @@ router.post('/staff/google-login', async (req, res) => {
             });
         }
 
-        // 處理 OAuth client not found 錯誤
+        // Handle OAuth client not found error
         if (error.message.includes('invalid_client') || 
             error.message.includes('OAuth client was not found') ||
             error.message.includes('OAuth client not found')) {

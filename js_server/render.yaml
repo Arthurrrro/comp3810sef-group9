@@ -1,5 +1,5 @@
-# 後端專用的 Render 配置文件
-# 如果使用此文件，請將此文件放在 js_server 目錄作為根目錄配置
+# Backend-specific Render configuration file
+# If using this file, place it in the js_server directory as the root directory configuration
 
 services:
   - type: web

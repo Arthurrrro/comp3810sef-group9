@@ -26,7 +26,7 @@ const MonthlyYieldReport = () => {
 
   return (
     <Box sx={{ maxWidth: 1400, margin: '0 auto', width: '100%' }}>
-      {/* 統一的標題區 */}
+      {/* Unified title section */}
       <Paper sx={{ 
         mb: 4,
         borderRadius: 3,

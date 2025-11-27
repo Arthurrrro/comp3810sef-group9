@@ -1,38 +1,38 @@
 #!/usr/bin/env node
 
 /**
- * 合併部署構建腳本
- * 此腳本用於在 Render 部署時構建前端並準備後端
+ * Combined deployment build script
+ * This script is used to build the frontend and prepare the backend when deploying on Render
  */
 
 const { execSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-console.log('🚀 開始構建前後端合併部署...\n');
+console.log('🚀 Starting combined frontend and backend build...\n');
 
-// 檢查前端目錄是否存在
+// Check if frontend directory exists
 const viewsPath = path.join(__dirname, 'Views');
 if (!fs.existsSync(viewsPath)) {
-    console.error('❌ 錯誤：找不到 Views 目錄');
+    console.error('❌ Error: Views directory not found');
     process.exit(1);
 }
 
-// 檢查前端 package.json
+// Check frontend package.json
 const frontendPackageJson = path.join(viewsPath, 'package.json');
 if (!fs.existsSync(frontendPackageJson)) {
-    console.error('❌ 錯誤：找不到 Views/package.json');
+    console.error('❌ Error: Views/package.json not found');
     process.exit(1);
 }
 
 try {
-    console.log('📦 步驟 1/3: 安裝前端依賴...');
+    console.log('📦 Step 1/3: Installing frontend dependencies...');
     process.chdir(viewsPath);
     execSync('npm install', { stdio: 'inherit' });
-    console.log('✅ 前端依賴安裝完成\n');
+    console.log('✅ Frontend dependencies installed\n');
 
-    console.log('🔨 步驟 2/3: 構建前端應用...');
-    // 設置環境變量（如果存在）
+    console.log('🔨 Step 2/3: Building frontend application...');
+    // Set environment variables (if they exist)
     const env = { ...process.env };
     if (process.env.REACT_APP_API_URL) {
         env.REACT_APP_API_URL = process.env.REACT_APP_API_URL;
@@ -42,25 +42,25 @@ try {
     }
     
     execSync('npm run build', { stdio: 'inherit', env });
-    console.log('✅ 前端構建完成\n');
+    console.log('✅ Frontend build completed\n');
 
-    // 檢查構建輸出
+    // Check build output
     const buildPath = path.join(viewsPath, 'build');
     if (!fs.existsSync(buildPath)) {
-        console.error('❌ 錯誤：前端構建失敗，找不到 build 目錄');
+        console.error('❌ Error: Frontend build failed, build directory not found');
         process.exit(1);
     }
 
-    console.log('📦 步驟 3/3: 安裝後端依賴...');
+    console.log('📦 Step 3/3: Installing backend dependencies...');
     process.chdir(path.join(__dirname, 'js_server'));
     execSync('npm install', { stdio: 'inherit' });
-    console.log('✅ 後端依賴安裝完成\n');
+    console.log('✅ Backend dependencies installed\n');
 
-    console.log('🎉 構建完成！前端已構建到 Views/build 目錄');
-    console.log('💡 提示：確保設置環境變量 SERVE_FRONTEND=true 以啟用前端服務\n');
+    console.log('🎉 Build completed! Frontend has been built to Views/build directory');
+    console.log('💡 Tip: Make sure to set environment variable SERVE_FRONTEND=true to enable frontend service\n');
     
 } catch (error) {
-    console.error('❌ 構建失敗:', error.message);
+    console.error('❌ Build failed:', error.message);
     process.exit(1);
 }
 
