@@ -44,22 +44,25 @@ router.post('/staff/google-login', async (req, res) => {
             });
         }
 
-        // 檢查環境變量
-        console.log('2. Checking Google Client ID:', process.env.GOOGLE_CLIENT_ID ? 'Present' : 'MISSING');
-        if (!process.env.GOOGLE_CLIENT_ID) {
+        // 檢查環境變量（去除空格）
+        const backendClientId = process.env.GOOGLE_CLIENT_ID ? process.env.GOOGLE_CLIENT_ID.trim() : null;
+        console.log('2. Checking Google Client ID:', backendClientId ? `Present (${backendClientId.substring(0, 20)}...)` : 'MISSING');
+        if (!backendClientId) {
             return res.status(500).json({
                 success: false,
-                error: 'Google OAuth 配置錯誤：後端環境變數 GOOGLE_CLIENT_ID 未設置。請在 Render 環境變數中設置 GOOGLE_CLIENT_ID，並確保其值與 REACT_APP_GOOGLE_CLIENT_ID 相同。'
+                error: 'Google OAuth configuration error: Backend environment variable GOOGLE_CLIENT_ID is not set. Please set GOOGLE_CLIENT_ID in Render environment variables and ensure its value matches REACT_APP_GOOGLE_CLIENT_ID.'
             });
         }
         
         // 檢查前端和後端 Client ID 是否一致
-        const frontendClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-        if (frontendClientId && frontendClientId !== process.env.GOOGLE_CLIENT_ID) {
-            console.error('❌ Client ID 不匹配：前端和後端使用了不同的 Client ID');
+        const frontendClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID ? process.env.REACT_APP_GOOGLE_CLIENT_ID.trim() : null;
+        if (frontendClientId && frontendClientId !== backendClientId) {
+            console.error('❌ Client ID mismatch: Frontend and backend are using different Client IDs');
+            console.error('Frontend ID:', frontendClientId);
+            console.error('Backend ID:', backendClientId);
             return res.status(500).json({
                 success: false,
-                error: 'Google OAuth 配置錯誤：前端和後端使用了不同的 Client ID。請確保 REACT_APP_GOOGLE_CLIENT_ID 和 GOOGLE_CLIENT_ID 的值完全相同。'
+                error: 'Google OAuth configuration error: Frontend and backend are using different Client IDs. Please ensure REACT_APP_GOOGLE_CLIENT_ID and GOOGLE_CLIENT_ID have exactly the same value.'
             });
         }
 
@@ -67,7 +70,7 @@ router.post('/staff/google-login', async (req, res) => {
         console.log('3. Verifying Google token...');
         const ticket = await client.verifyIdToken({
             idToken: credential,
-            audience: process.env.GOOGLE_CLIENT_ID,
+            audience: backendClientId,
         });
 
         const payload = ticket.getPayload();
@@ -142,7 +145,7 @@ router.post('/staff/google-login', async (req, res) => {
             error.message.includes('OAuth client not found')) {
             return res.status(400).json({
                 success: false,
-                error: 'Google OAuth Client ID 配置錯誤。請檢查環境變量 GOOGLE_CLIENT_ID 是否正確設置，並確認該 Client ID 在 Google Cloud Console 中存在。'
+                error: 'Google OAuth Client ID configuration error. Please check if the environment variable GOOGLE_CLIENT_ID is correctly set and confirm that this Client ID exists in Google Cloud Console.'
             });
         }
 

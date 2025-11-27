@@ -65,22 +65,26 @@ connectDB();
 
 // Check your Google OAuth configuration (if using).
 if (process.env.REACT_APP_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID) {
-    const frontendClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-    const backendClientId = process.env.GOOGLE_CLIENT_ID;
+    // Trim whitespace to avoid issues with hidden spaces
+    const frontendClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID ? process.env.REACT_APP_GOOGLE_CLIENT_ID.trim() : null;
+    const backendClientId = process.env.GOOGLE_CLIENT_ID ? process.env.GOOGLE_CLIENT_ID.trim() : null;
     
     console.log('Google OAuth Configuration Check:');
-    console.log('REACT_APP_GOOGLE_CLIENT_ID:', frontendClientId ? 'Already set' : 'Not set');
-    console.log('GOOGLE_CLIENT_ID:', backendClientId ? 'Already set' : 'Not set');
+    console.log('REACT_APP_GOOGLE_CLIENT_ID:', frontendClientId ? `Set (${frontendClientId.substring(0, 20)}...)` : 'Not set');
+    console.log('GOOGLE_CLIENT_ID:', backendClientId ? `Set (${backendClientId.substring(0, 20)}...)` : 'Not set');
     
     if (!frontendClientId || !backendClientId) {
         console.warn('Warning: Google OAuth environment variables are incomplete');
         console.warn('Note: You must set both REACT_APP_GOOGLE_CLIENT_ID and GOOGLE_CLIENT_ID.');
     } else if (frontendClientId !== backendClientId) {
-        console.error('Error: The values ​​of REACT_APP_GOOGLE_CLIENT_ID and GOOGLE_CLIENT_ID are inconsistent!');
+        console.error('Error: The values of REACT_APP_GOOGLE_CLIENT_ID and GOOGLE_CLIENT_ID are inconsistent!');
+        console.error('Frontend ID:', frontendClientId);
+        console.error('Backend ID:', backendClientId);
+        console.error('Length comparison - Frontend:', frontendClientId.length, 'Backend:', backendClientId.length);
         console.error('This will cause Google OAuth login to fail (invalid_client error).');
-        console.error('Please ensure that the values ​​of the two environmental variables are exactly the same.');
+        console.error('Please ensure that the values of the two environmental variables are exactly the same.');
     } else {
-        console.log('Google OAuth Correct configuration');
+        console.log('✅ Google OAuth configuration is correct');
     }
 }
 
