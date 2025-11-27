@@ -1,5 +1,30 @@
-## js_server
-### js_server/server.js
+# Fruit-Order-System
+
+A simple fruit ordering system using the MERN stack.
+
+## 1. Project Info
+
+**Project Name:** Fruit-Order-System
+
+**Group Number:** comp3810-group9
+
+**GitHub Repository:** https://github.com/Arthurrrro/comp3810sef-group9
+
+**Students:**
+
+| Name | SID |
+|------|-----|
+| Tse Cheuk Wa | 12958473 |
+| Man Ka Lok | 3896396 |
+| LIU Jiahong | 13896612 |
+| Leung Yi Chen | 13897565 |
+| Chung Yat Ming | 12992583 |
+
+---
+
+## 2. Project File Intro
+
+### server.js (js_server/server.js)
 - **Express.js**: Node.js web framework
 - **Cookie Parser**: Handles HTTP cookies
 - **MongoDB Database Connection**
@@ -16,115 +41,90 @@
   - Environment Variables: Protects sensitive information
   - Google OAuth Authentication: Identity verification system
 
-### js_server/orderBean
-- Contains preset data templates that can be temporarily stored
-- Data models for: staff, fruits, countries, cities, locations, inventory, borrows, deliveries
-
-### js_server/orderDB
-- Controls database operations: read, delete, update, insert
-- Database access layer for all collections
-
-### js_server/routes
-- Exposes API endpoints for frontend connectivity
-- RESTful API routes for all business modules
-
-### js_server/package.json
+### package.json (js_server/package.json)
 - **Full-Stack Project** - Includes frontend build processes
 - **Modern Configuration** - Uses environment variables and hot reloading
 - **Authentication Integration** - Supports Google OAuth
 - **Database Driven** - MongoDB data persistence
 - **Development Friendly** - Distinguishes between development and production environments
 
-## Views
-### Views/src/components
-- User Interface components
-- **AddFruit**: Component for creating new fruits
-- **AddInventory**: Component for adding inventory records
-- **AddDeliveries**: Component for creating delivery records
-- **AddStaffDialog**: Component for adding new staff members
-- **StaffList/StaffManagement**: Staff list and management interface
-- **fruitinformation**: Fruit information display and editing
-- **Deliverieslist**: Delivery list and management
-- **Order**: Order management interface
-- **PartitionOrders**: Inventory partition management
-- **RequestBorrow**: Request borrowing interface
-- **borrowConfirm**: Borrow confirmation interface
-- **Yield**: Production yield reporting and analytics
-- **profile**: User profile management
+**Dependencies:**
+- express: ^5.1.0
+- mongoose: ^8.18.1
+- cookie-parser: ^1.4.7
+- dotenv: ^17.2.2
+- google-auth-library: ^10.5.0
 
-### Views/src/utils/auth.js
-- Controls login routing paths
+### public (Views/public)
+Static files and resources for the React frontend:
+- `index.html`: Main HTML template
+- `favicon.ico`: Site icon
+- `logo192.png`, `logo512.png`: Application logos
+- `manifest.json`: Web app manifest
+- `robots.txt`: Search engine crawler instructions
 
-### Views/src/components/GetAPI/Getapi.js
-- Connects to and consumes backend APIs
+### views (Views/src)
+React UI components and source code (not EJS templates):
+- **Views/src/components**: User Interface components
+  - **AddFruit**: Component for creating new fruits
+  - **AddInventory**: Component for adding inventory records
+  - **AddDeliveries**: Component for creating delivery records
+  - **AddStaffDialog**: Component for adding new staff members
+  - **StaffList/StaffManagement**: Staff list and management interface
+  - **fruitinformation**: Fruit information display and editing
+  - **Deliverieslist**: Delivery list and management
+  - **Order**: Order management interface
+  - **PartitionOrders**: Inventory partition management
+  - **RequestBorrow**: Request borrowing interface
+  - **borrowConfirm**: Borrow confirmation interface
+  - **Yield**: Production yield reporting and analytics
+  - **profile**: User profile management
+  - **LoginPage**: User authentication interface
+- **Views/src/utils/auth.js**: Controls login routing paths
+- **Views/src/components/GetAPI/Getapi.js**: Connects to and consumes backend APIs
+- **Views/src/App.js**: Login status management, Google OAuth integration, conditional rendering
+- **Views/src/index.js**: Application startup and root component rendering
 
-### Views/package-lock.json
-**Technology Stack Characteristics:**
-1. **Modern Frontend Stack**
-   - React 19 + Material-UI + React Router
-   - Enterprise-grade technology choices
+**Technology Stack:**
+- React 19 + Material-UI + React Router
+- Chart displays (Recharts)
+- Google Login (OAuth)
+- Responsive design (MUI)
 
-2. **Complete Development Experience**
-   - Built-in testing configuration
-   - Code quality linting
-   - Performance monitoring
+### models (js_server/orderBean)
+Data schema files using Mongoose:
+- **staffBean.js**: Staff member data model
+- **fruitsBean.js**: Fruit product data model
+- **countriesBean.js**: Country data model
+- **citiesBean.js**: City data model
+- **locationsBean.js**: Location data model
+- **inventoryBean.js**: Inventory record data model
+- **borrowsBean.js**: Borrow request data model
+- **deliveriesBean.js**: Delivery record data model
 
-3. **Rich Feature Integration**
-   - Chart displays (Recharts)
-   - Google Login (OAuth)
-   - Responsive design (MUI)
+### Additional Directories
 
-4. **Production Ready**
-   - Optimized build configuration
-   - Browser compatibility handling
-   - Performance monitoring integration
+**js_server/orderDB**: Database access layer
+- Controls database operations: read, delete, update, insert
+- Database access layer for all collections
 
-### Views/src/App.js
-- **Login Status Management** - Controls user login/logout states
-- **Google OAuth Integration** - Uses Google accounts for authentication
-- **Conditional Rendering** - Displays different interfaces based on login status
+**js_server/routes**: API endpoints
+- Exposes API endpoints for frontend connectivity
+- RESTful API routes for all business modules
 
-### Views/src/index.js
-- **Application Startup** - Mounts React components to the DOM
-- **Root Component Rendering** - Initializes the entire application
+---
 
-
-# Fruit-Order-System
-
-A simple fruit ordering system using the MERN stack.
-
-## Project Information
-
-**Group Number:** comp3810-group9
-
-**Students:**
-
-| Name | SID |
-|------|-----|
-| Tse Cheuk Wa | 12958473 |
-| Man Ka Lok | 3896396 |
-| LIU Jiahong | 13896612 |
-| Leung Yi Chen | 13897565 |
-
-## Cloud-Based Server URL
+## 3. The Cloud-Based Server URL
 
 **Production Server:** `https://comp3810sef-group9.onrender.com/`
 
 ---
 
-# run npm
-# 1.
-cd js_server && npm install && cd ../Views && npm install && cd .. && npm install concurrently
-# 2.
-npx concurrently "cd js_server && node server.js" "cd Views && npm start"
+## 4. Operation Guides
 
----
+### Use of Login/Logout Pages
 
-## Operation Guides
-
-### Login/Logout Pages
-
-#### Valid Login Credentials
+#### Valid Login Information
 
 **Manager Accounts:**
 - Email: `john@us.com` / Password: `password1`
@@ -156,7 +156,7 @@ npx concurrently "cd js_server && node server.js" "cd Views && npm start"
 
 ---
 
-### CRUD Web Pages
+### Use of CRUD Web Pages
 
 #### Create Operations
 
@@ -225,13 +225,13 @@ npx concurrently "cd js_server && node server.js" "cd Views && npm start"
 
 ---
 
-### RESTful CRUD Services
+### Use of RESTful CRUD Services
 
 #### API Base URL
 - **Production**: `https://comp3810sef-group9.onrender.com`
 - **Local Development**: `http://localhost:3020`
 
-#### Complete API Endpoints
+#### Lists of APIs
 
 ##### Fruits API
 
@@ -318,114 +318,124 @@ npx concurrently "cd js_server && node server.js" "cd Views && npm start"
 | PUT | `/borrows/:id` | Update borrow by ID |
 | DELETE | `/borrows/:id` | Delete borrow by ID |
 
----
+#### How to Test Them - CURL Testing Commands
 
-# API Testing Commands (Production - Render)
+##### API Testing Commands (Production - Render)
 
-## 1. GET - Get all fruits
+**1. GET - Get all fruits**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/fruits
 ```
 
-## 2. POST - Create new fruit
+**2. POST - Create new fruit**
 ```bash
 curl -X POST https://comp3810sef-group9.onrender.com/fruits -H "Content-Type: application/json" -d "{\"fruitsArray\": [{\"_id\": 8888, \"name\": \"Apple\", \"originCountryId\": 1, \"price\": 5.50, \"unit\": \"kg\", \"description\": \"Fresh red apples\"}]}"
 ```
 
-## 3. PUT - Update fruit
+**3. PUT - Update fruit**
 ```bash
 curl -X PUT https://comp3810sef-group9.onrender.com/fruits/8888 -H "Content-Type: application/json" -d "{\"name\": \"Green Apple\", \"originCountryId\": 1, \"price\": 6.00}"
 ```
 
-## 4. DELETE - Delete fruit
+**4. DELETE - Delete fruit**
 ```bash
 curl -X DELETE https://comp3810sef-group9.onrender.com/fruits/8888
 ```
 
-#### Staff API Testing Examples
-
-**1. GET - Get all staff**
+**5. GET - Get all staff**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/staff
 ```
 
-**2. POST - Staff login**
+**6. POST - Staff login**
 ```bash
 curl -X POST https://comp3810sef-group9.onrender.com/staff/login -H "Content-Type: application/json" -d "{\"email\": \"john@us.com\", \"password\": \"password1\"}"
 ```
 
-**3. GET - Check authentication**
+**7. GET - Check authentication**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/auth/check -b cookies.txt
 ```
 
-**4. POST - Create staff (requires authentication)**
+**8. POST - Create staff (requires authentication)**
 ```bash
 curl -X POST https://comp3810sef-group9.onrender.com/staff -H "Content-Type: application/json" -b cookies.txt -d "{\"staffArray\": [{\"name\": \"New Staff\", \"email\": \"newstaff@test.com\", \"password\": \"password123\", \"phone\": \"1234567890\", \"job\": \"warehouse\", \"locationId\": 1001, \"status\": true}]}"
 ```
 
-**5. PUT - Update staff (requires authentication & permission)**
+**9. PUT - Update staff (requires authentication & permission)**
 ```bash
 curl -X PUT https://comp3810sef-group9.onrender.com/staff/6 -H "Content-Type: application/json" -b cookies.txt -d "{\"name\": \"Updated Name\", \"email\": \"mike@us.com\", \"job\": \"warehouse\", \"phone\": \"6789012345\", \"locationId\": 1002, \"status\": true}"
 ```
 
-**6. DELETE - Delete staff (requires authentication & permission)**
+**10. DELETE - Delete staff (requires authentication & permission)**
 ```bash
 curl -X DELETE https://comp3810sef-group9.onrender.com/staff/6 -b cookies.txt
 ```
 
-#### Other API Testing Examples
-
-**Get all countries:**
+**11. Get all countries:**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/countries
 ```
 
-**Get all cities:**
+**12. Get all cities:**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/cities
 ```
 
-**Get all locations:**
+**13. Get all locations:**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/locations
 ```
 
-**Get all inventory:**
+**14. Get all inventory:**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/inventory
 ```
 
-**Get all deliveries:**
+**15. Get all deliveries:**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/deliveries
 ```
 
-**Get all borrows:**
+**16. Get all borrows:**
 ```bash
 curl -X GET https://comp3810sef-group9.onrender.com/borrows
 ```
 
----
+##### API Testing Commands (Local Development)
 
-# API Testing Commands (Local Development)
-
-## 1. GET - Get all fruits
+**1. GET - Get all fruits**
 ```bash
 curl -X GET http://localhost:3020/fruits
 ```
 
-## 2. POST - Create new fruit
+**2. POST - Create new fruit**
 ```bash
 curl -X POST http://localhost:3020/fruits -H "Content-Type: application/json" -d "{\"fruitsArray\": [{\"_id\": 8888, \"name\": \"Apple\", \"originCountryId\": 1, \"price\": 5.50, \"unit\": \"kg\", \"description\": \"Fresh red apples\"}]}"
 ```
 
-## 3. PUT - Update fruit
+**3. PUT - Update fruit**
 ```bash
 curl -X PUT http://localhost:3020/fruits/8888 -H "Content-Type: application/json" -d "{\"name\": \"Green Apple\", \"originCountryId\": 1, \"price\": 6.00}"
 ```
 
-## 4. DELETE - Delete fruit
+**4. DELETE - Delete fruit**
 ```bash
 curl -X DELETE http://localhost:3020/fruits/8888
+```
+
+---
+
+## Local Development Setup
+
+### Run npm
+
+**1. Install dependencies:**
+```bash
+cd js_server && npm install && cd ../Views && npm install && cd .. && npm install concurrently
+```
+
+**2. Start development servers:**
+```bash
+npx concurrently "cd js_server && node server.js" "cd Views && npm start"
 ```
