@@ -186,6 +186,15 @@ router.get('/staff/login/:email/:password', async (req, res) => {
 
 router.post('/staff/login', async (req, res) => {
     try {
+        // Check if req.body exists
+        if (!req.body) {
+            console.log('Request body is missing or not parsed');
+            return res.status(400).json({
+                success: false,
+                error: 'Request body is required. Please ensure Content-Type is application/json'
+            });
+        }
+
         const { email, password } = req.body;
 
         console.log(' Login request:', { email, password: password ? '***' : 'undefined' });
@@ -295,6 +304,15 @@ router.get('/staff/information/:email', async (req, res) => {
 router.put('/staff/:id', async (req, res) => {
     try {
         const { id } = req.params;
+        
+        // Check if req.body exists
+        if (!req.body) {
+            return res.status(400).json({
+                success: false,
+                error: 'Request body is required. Please ensure Content-Type is application/json'
+            });
+        }
+        
         const { name, email, password, locationId, phone, job, status } = req.body;
 
         const actingEmail = req.cookies.userEmail;
@@ -378,6 +396,14 @@ router.put('/staff/:id', async (req, res) => {
 
 router.post("/staff", async (req, res) => {
     try {
+        // Check if req.body exists
+        if (!req.body) {
+            return res.status(400).json({
+                success: false,
+                error: 'Request body is required. Please ensure Content-Type is application/json'
+            });
+        }
+        
         const { staffArray } = req.body;
         
         if (!staffArray || !Array.isArray(staffArray) || staffArray.length === 0) {
