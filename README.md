@@ -1,6 +1,6 @@
 # Fruit-Order-System
 
-A simple fruit ordering system using the MERN stack.
+A simple full-stack fruit ordering management application built with the MERN stack (MongoDB, React, Node.js)
 
 ## 1. Project Info
 
