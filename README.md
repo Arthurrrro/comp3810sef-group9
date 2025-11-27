@@ -15,7 +15,7 @@ A simple full-stack fruit ordering management application built with the MERN st
 | Name | SID |
 |------|-----|
 | Tse Cheuk Wa | 12958473 |
-| Man Ka Lok | 3896396 |
+| Man Ka Lok | 13896396 |
 | LIU Jiahong | 13896612 |
 | Leung Yi Chen | 13897565 |
 | Chung Yat Ming | 12992583 |
@@ -224,9 +224,6 @@ Data schema files using Mongoose:
 
 - **Delete Fruit**: Navigate to "Fruit" → "Fruit Information" → Click "Delete" button on a fruit row (Manager only)
   - Confirm deletion in the dialog
-
-- **Delete Staff**: Navigate to "Staff" → "List Staff" → Click "Delete" button (Manager only)
-  - Confirm deletion
 
 - **Delete Delivery**: Navigate to "Deliveries" → Click "Delete" button on a delivery row
   - Confirm deletion
