@@ -41,7 +41,18 @@ const columns = [
   },
 ];
 
-export default function StaffTable({ onEditStaff }) {
+const ROLE_PRIORITY = {
+  manager: 3,
+  staff: 2,
+  shop: 1,
+};
+
+const getPriority = (job) => {
+  if (!job) return 0;
+  return ROLE_PRIORITY[job.toLowerCase()] || 0;
+};
+
+export default function StaffTable({ onEditStaff, currentUser }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [staffData, setStaffData] = React.useState([]);
@@ -124,6 +135,17 @@ export default function StaffTable({ onEditStaff }) {
     setPage(0);
   }, [searchTerm, staffData]);
 
+  const canEditStaff = React.useCallback((staff) => {
+    if (!currentUser || !staff) return false;
+    const currentUserId = currentUser._id?.toString();
+    const staffId = staff._id?.toString();
+    if (currentUserId && staffId && currentUserId === staffId) {
+      return false;
+    }
+
+    return getPriority(currentUser.job || '') > getPriority(staff.job || '');
+  }, [currentUser]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -134,6 +156,11 @@ export default function StaffTable({ onEditStaff }) {
   };
 
   const handleEditClick = (staff) => {
+    if (!canEditStaff(staff)) {
+      alert('You can only edit employees with lower access levels.');
+      return;
+    }
+
     if (onEditStaff) {
       onEditStaff(staff);
     } else {
@@ -327,6 +354,7 @@ export default function StaffTable({ onEditStaff }) {
                                 size="small"
                                 startIcon={<EditIcon />}
                                 onClick={() => handleEditClick(row)}
+                                disabled={!canEditStaff(row)}
                                 sx={{
                                   textTransform: 'none',
                                   minWidth: '80px',
@@ -339,6 +367,11 @@ export default function StaffTable({ onEditStaff }) {
                                     color: 'white',
                                   },
                                 }}
+                                title={
+                                  canEditStaff(row)
+                                    ? 'Edit'
+                                    : 'You can only edit employees with lower access levels than your own.'
+                                }
                               >
                                 Edit
                               </Button>

@@ -297,6 +297,56 @@ router.put('/staff/:id', async (req, res) => {
         const { id } = req.params;
         const { name, email, password, locationId, phone, job, status } = req.body;
 
+        const actingEmail = req.cookies.userEmail;
+
+        if (!actingEmail) {
+            return res.status(401).json({
+                success: false,
+                error: 'Unauthorized',
+                message: 'User must be logged in to update staff information',
+            });
+        }
+
+        const actingUser = await staffDB.getStaffByEmail(actingEmail);
+        if (!actingUser.success || !actingUser.data) {
+            return res.status(403).json({
+                success: false,
+                error: 'Unauthorized',
+                message: 'Unable to determine user permissions',
+            });
+        }
+
+        const targetStaff = await staffDB.getStaffById(id);
+        if (!targetStaff.success || !targetStaff.data) {
+            return res.status(404).json({
+                success: false,
+                error: 'Staff not found',
+                message: targetStaff.error || 'Target staff does not exist',
+            });
+        }
+
+        const priorityMap = {
+            manager: 3,
+            staff: 2,
+            shop: 1,
+        };
+
+        const getPriority = (role) => {
+            if (!role) return 0;
+            return priorityMap[role.toLowerCase()] || 0;
+        };
+
+        const actorPriority = getPriority(actingUser.data.job);
+        const targetPriority = getPriority(targetStaff.data.job);
+
+        if (actorPriority <= targetPriority) {
+            return res.status(403).json({
+                success: false,
+                error: 'Permission denied',
+                message: 'You can only modify staff members with lower privileges',
+            });
+        }
+
         const result = await staffDB.updateStaff(id, {
             name: name,
             email: email,

@@ -76,6 +76,7 @@ const EditStaff = ({ staffData, onBack, onSave }) => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(formData)
       });
 
