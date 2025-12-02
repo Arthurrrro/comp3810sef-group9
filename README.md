@@ -442,6 +442,9 @@ curl -X DELETE http://localhost:3020/fruits/8888
 
 ### Run npm
 
+**0. Set up:**
+- `js_server and Views need .env` 
+
 **1. Install dependencies:**
 ```bash
 cd js_server && npm install && cd ../Views && npm install && cd .. && npm install concurrently
