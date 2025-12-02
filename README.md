@@ -240,8 +240,8 @@ Data schema files using Mongoose:
 #### API Base URL
 - **Production**: `https://comp3810sef-group9.onrender.com`
 - **Local Development**: 
-  - **Frontend: `http://localhost:3000`
-  - **Server: `http://localhost:3020` 
+  - **Frontend**: `http://localhost:3000`
+  - **Server**: `http://localhost:3020` 
 
 #### Lists of APIs
 
