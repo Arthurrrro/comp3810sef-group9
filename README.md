@@ -442,10 +442,12 @@ curl -X DELETE http://localhost:3020/fruits/8888
 
 ### Run npm
 
-**0. Set up:**
+**0. Set up `.env`:**
 - **js_server and Views both need `.env`**
-- **If your `.env` file doesn't exist, please rename `env js_server` and `env Views` to `.env` and place them in `/js_server` and `/Views` respectively**
-
+- **We included it in the file by default, but for security reasons, we did not upload the `.env` file to GitHub**
+  - **We also have a backup `.env` file, `env_js_server+Views.zip`, available if there are any issues**
+  - **If your `.env` file doesn't exist, please rename `env js_server` and `env Views` to `.env` and place them in `/js_server` and `/Views` respectively**
+  
 **1. Install dependencies:**
 ```bash
 cd js_server && npm install && cd ../Views && npm install && cd .. && npm install concurrently
