@@ -443,8 +443,8 @@ curl -X DELETE http://localhost:3020/fruits/8888
 ### Run npm
 
 **0. Set up:**
-- **js_server and Views both need .env**
-- **If your .env file doesn't exist, please rename js_server and env Views to .env and place them in /js_server and /Views respectively**
+- **js_server and Views both need `.env`**
+- **If your `.env` file doesn't exist, please rename `env js_server` and `env Views` to `.env` and place them in `/js_server` and `/Views` respectively**
 
 **1. Install dependencies:**
 ```bash
